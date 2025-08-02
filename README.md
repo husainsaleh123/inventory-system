@@ -35,7 +35,6 @@ A full-stack MVC application will be created for Dar Altaweesh to help the firm 
 - name: String
 - price: float
 - stock: int
-- email: String
 - products[]: Array of Products (referring to Product model)
 
 #### Order

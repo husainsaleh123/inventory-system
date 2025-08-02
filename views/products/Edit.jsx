@@ -2,7 +2,7 @@ const React = require("react");
 
 function Edit(props) {
     // Destructure the props to access product data
-    const { _id, name, price, stock, country, supplier, available } = props.product;
+    const { _id, name, price, unit, stock, country, supplier, available } = props.product;
 
     return (
         <div>
@@ -13,7 +13,10 @@ function Edit(props) {
                     Name: <input type="text" name="name" defaultValue={name} /><br />
                 </p>
                 <p>
-                    Price: <input type="number" name="price" defaultValue={price} /><br />
+                    Price: <input type="number" name="price" defaultValue={price} step="0.05" /><br />
+                </p>
+                 <p>
+                      Unit: <input type="text" name="unit" defaultValue={unit} /><br />
                 </p>
                 <p>
                     Stock: <input type="number" name="stock" defaultValue={stock} /><br />

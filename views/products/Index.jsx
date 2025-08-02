@@ -15,6 +15,7 @@ function Index (props){
                         <li>
                             <a href={`/products/${product._id}`}><h3>{product.name}</h3> </a>  
                             <p>Price: {product.price}</p>
+                            <p>Unit: {product.unit}</p>
                             <p>Stock: {product.stock}</p>
                             <p>Supplier: {product.supplier}</p>
                             <p>Country: {product.country}</p>

@@ -2,7 +2,7 @@ const React = require("react");
 
 function New(props) {
     // Access data passed via props (from the controller)
-    const { name = "", price = "", stock = "", supplier = "", country = "", available = false } = props;
+    const { name = "", price = "", unit="", stock = "", supplier = "", country = "", available = false } = props;
 
     return (
         <div>
@@ -10,7 +10,8 @@ function New(props) {
             <a href={`/products`}>Go back to Index Page</a>
             <form action={`/products`} method="POST">
                 <p>Name: <input type="text" name="name" defaultValue={name} /><br /></p>
-                <p>Price: <input type="number" name="price" defaultValue={price} min="0" /><br /></p>
+                <p>Price: <input type="number" name="price" defaultValue={price} min="0" step="0.05" /><br /></p>
+                <p>Unit: <input type="text" name="unit" defaultValue={price} min="0" /><br /></p>
                 <p>Stock: <input type="number" name="stock" defaultValue={stock} /><br /></p>
                 <p>Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br /></p>
                 <p>Country: <input type="text" name="country" defaultValue={country} /><br /></p>

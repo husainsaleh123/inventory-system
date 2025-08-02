@@ -4,7 +4,7 @@ const productData = {};
 // index
 productData.index = async (req, res, next) => {
     try {
-        const products = await Product.find({});  // Corrected 'product' to 'Product'
+        const products = await Product.find({});  
         res.locals.data.products = products;
         next();
     } catch (error) {
@@ -15,7 +15,7 @@ productData.index = async (req, res, next) => {
 // delete
 productData.destroy = async (req, res, next) => {
     try {
-        await Product.findByIdAndDelete(req.params.id);  // Corrected 'product' to 'Product'
+        await Product.findByIdAndDelete(req.params.id);  
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });
@@ -31,7 +31,7 @@ productData.update = async (req, res, next) => {
     }
 
     try {
-        res.locals.data.product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });  // Corrected 'product' to 'Product'
+        res.locals.data.product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true }); 
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });
@@ -57,8 +57,8 @@ productData.create = async (req, res, next) => {
 // show
 productData.show = async (req, res, next) => {
     try {
-        const foundProduct = await Product.findById(req.params.id);  // Corrected 'product' to 'Product'
-        res.locals.data.product = foundProduct;
+        const foundProduct = await Product.findById(req.params.id);
+        res.locals.data.product = foundProduct;  // Make sure all fields in `product` are passed
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });

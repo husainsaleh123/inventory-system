@@ -1,7 +1,7 @@
 const Product = require('../../models/product');
 const productData = {};
 
-// index
+// Index
 productData.index = async (req, res, next) => {
     try {
         const products = await Product.find({});  
@@ -12,7 +12,7 @@ productData.index = async (req, res, next) => {
     }
 };
 
-// delete
+// Delete
 productData.destroy = async (req, res, next) => {
     try {
         await Product.findByIdAndDelete(req.params.id);  
@@ -22,7 +22,7 @@ productData.destroy = async (req, res, next) => {
     }
 };
 
-// update
+// Update
 productData.update = async (req, res, next) => {
     if (req.body.available === "on" || req.body.available === true) {
         req.body.available = true;
@@ -30,15 +30,20 @@ productData.update = async (req, res, next) => {
         req.body.available = false;
     }
 
+    // Handle image upload if a new image is provided
+    if (req.file) {
+        req.body.image = req.file.filename;  // Store the image filename in the database
+    }
+
     try {
-        res.locals.data.product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true }); 
+        res.locals.data.product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
 
-// create
+// Create
 productData.create = async (req, res, next) => {
     if (req.body.available === "on" || req.body.available === true) {
         req.body.available = true;
@@ -46,19 +51,24 @@ productData.create = async (req, res, next) => {
         req.body.available = false;
     }
 
+    // Handle image upload if an image is provided
+    if (req.file) {
+        req.body.image = req.file.filename;  // Store the image filename in the database
+    }
+
     try {
-        const newProduct = await Product.create(req.body);  // Corrected 'product' to 'Product'
+        const newProduct = await Product.create(req.body);  
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });
     }
 };
 
-// show
+// Show
 productData.show = async (req, res, next) => {
     try {
         const foundProduct = await Product.findById(req.params.id);
-        res.locals.data.product = foundProduct;  // Make sure all fields in `product` are passed
+        res.locals.data.product = foundProduct;  // Ensure all product fields are passed, including image
         next();
     } catch (error) {
         res.status(400).send({ message: error.message });

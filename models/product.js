@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const productSchema = new mongoose.Schema({
+    image: { type: String, default: 'path_to_default_image.jpg' }, // Image URL, defaults to default image
     name: { type: String, required: true },
     price: { type: Number, required: true },
     unit: { type: String, required: true },

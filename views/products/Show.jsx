@@ -2,11 +2,20 @@ const React = require("react");
 
 function Show(props) {
     // Destructure the product data passed from the server
-    const { _id, name, price, unit, stock, supplier, country, available } = props.product;
+    const { _id, name, price, unit, stock, supplier, country, available, image } = props.product;
 
     return (
         <div>
             <h1>Product Details</h1>
+            {/* Displays the product image if available */}
+             <a href={`/products`}>Go back to Index Page</a>
+            <p><strong>Image:</strong></p>
+            {image ? (
+                <img src={`/uploads/${image}`} alt={name} style={{ width: '200px', height: 'auto' }} />
+            ) : (
+                <img src="/uploads/default-image.jpg" alt="Default" style={{ width: '200px', height: 'auto' }} />
+            )}
+            
             <p><strong>Name:</strong> {name}</p>
             <p><strong>Price:</strong> {price}</p>
             <p><strong>Unit:</strong> {unit}</p>
@@ -14,7 +23,8 @@ function Show(props) {
             <p><strong>Supplier:</strong> {supplier}</p>
             <p><strong>Country:</strong> {country}</p>
             <p><strong>Available:</strong> {available ? "Yes" : "No"}</p>
-            
+
+            <br />
             {/* Edit Button - Links to the Edit page */}
             <a href={`/products/${_id}/edit`}>
                 <button>Edit Product</button>

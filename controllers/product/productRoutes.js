@@ -4,6 +4,7 @@ const path = require("path");  // Import path module for file handling
 const router = express.Router();
 const productViews = require("./productViews");  
 const productData = require("./productData");
+const { auth } = require('../auth/dataController');
 
 // Multer setup that saves the uploaded images in the 'public/uploads' directory
 const storage = multer.diskStorage({
@@ -16,6 +17,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });  // Initialize multer
+
+router.use(auth);
 
 // Route for creating a new product with image upload
 router.post("/", upload.single('image'), productData.create, productViews.redirectHome);  

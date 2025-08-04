@@ -1,14 +1,24 @@
-const express = require('express')
-const router = express.Router()
-const dataController = require('./dataController')
-const viewController = require('./viewController')
-const productsViewController = require('../products/viewController')
+const express = require('express');
+const router = express.Router();
+const dataController = require('./dataController');
+const viewController = require('./viewController');
 
-router.post('/', dataController.createUser, viewController.redirectToLogin)// signup user => login page
-router.get('/', viewController.signUp) // show sign up form
-router.post('/login', dataController.loginUser, productsViewController.redirectHome)
-router.get('/login', viewController.signIn) // show login form
-router.put('/:id', dataController.updateUser)
-router.delete('/:id', dataController.auth, dataController.deleteUser)
+// Signup User (POST) => Redirect to login page after successful signup
+router.post('/', dataController.createUser, viewController.redirectToLogin);  // Ensuring this routes the signup properly
 
-module.exports = router
+// Show signup form (GET) => Display signup page
+router.get('/signup', viewController.signUp);  // Correct route for the sign-up page
+
+// Login User (POST) => Authenticate and redirect to the products page after login
+router.post('/login', dataController.loginUser, viewController.redirectHome);
+
+// Show login form (GET)
+router.get('/login', viewController.signIn);
+
+// Update User (PUT) => Requires user to be logged in
+router.put('/:id', dataController.auth, dataController.updateUser);
+
+// Delete User (DELETE) => Requires user to be logged in
+router.delete('/:id', dataController.auth, dataController.deleteUser);
+
+module.exports = router;

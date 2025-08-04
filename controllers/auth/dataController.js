@@ -1,67 +1,136 @@
-const product = require('../../models/product.js')
+const User = require('../../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const dataController = {}
-dataController.index = async (req,res,next) => {
-   try {
-    const user = await req.user.populate('products')
-    res.locals.data.products = user.products
-    next()
-   } catch(error) {
-    res.status(400).send({ message: error.message })
+// Authentication middleware
+
+exports.auth = async (req, res, next) => {
+  try {
+    let token;
+
+    // ✅ Read token from cookie
+    if (req.cookies && req.cookies.token) {
+      token = req.cookies.token;
+    } else {
+      return res.status(401).render('auth/SignIn', {
+        error: 'You must be logged in to access this page.'
+      });
+    }
+
+    const data = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+    const user = await User.findById(data._id);
+
+    if (!user) {
+      return res.status(401).render('auth/SignIn', {
+        error: 'Session expired or invalid. Please login again.'
+      });
+    }
+
+    req.user = user;
+    res.locals.data.user = user;
+    next();
+  } catch (error) {
+    return res.status(401).render('auth/SignIn', {
+      error: 'Session expired or invalid. Please login again.'
+    });
   }
-}
-
-dataController.destroy = async (req, res, next ) => {
-    try {
-         await product.findOneAndDelete({'_id': req.params.id }).then(() => {
-            next()
-         })
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-}
-
-dataController.update = async (req, res, next) => {
-    if(req.body.readyToEat === 'on'){
-        req.body.readyToEat = true;
-    } else if(req.body.readyToEat !== true) {
-        req.body.readyToEat = false;
-    }
-    try {
-      res.locals.data.product = await product.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      next()
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-}
-
-dataController.create = async (req, res, next) => {
-    if(req.body.readyToEat === 'on'){
-        req.body.readyToEat = true;
-    } else if(req.body.readyToEat !== true) {
-        req.body.readyToEat = false;
-    }
-    try {
-      res.locals.data.product = await product.create(req.body)
-      req.user.products.addToSet({_id: res.locals.data.product._id })
-      await req.user.save()
-      next()
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-}
-
-dataController.show = async (req, res, next) => {
-    try {
-        res.locals.data.product = await product.findById(req.params.id)
-        if(!res.locals.data.product){
-            throw new error(`could not locate a product with the id ${req.params.id}`)
-        }
-        next()
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-}
+};
 
 
-module.exports = dataController
+// Create a new user
+exports.createUser = async (req, res, next) => {
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
+
+    if (existingUser) {
+      return res.status(400).render('auth/SignUp', {
+        error: 'User already exists, please sign in.'
+      });
+    }
+
+    const user = new User(req.body);
+    await user.save();
+
+    next();  // redirect to login
+  } catch (error) {
+    res.status(400).render('auth/SignUp', {
+      error: 'Something went wrong. Please try again.'
+    });
+  }
+};
+
+
+// Login user
+// Login user
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      return res.status(400).render('auth/SignIn', {
+        error: 'Invalid email or password'
+      });
+    }
+
+    const token = await user.generateAuthToken();
+
+    // ✅ Set token in HTTP-only cookie instead of query string
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: false, // true if using https
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    });
+
+    // ✅ Redirect without token in URL
+    res.redirect('/products');
+  } catch (error) {
+    res.status(400).render('auth/SignIn', {
+      error: 'Something went wrong. Please try again.'
+    });
+  }
+};
+
+
+// Update user information
+exports.updateUser = async (req, res) => {
+  try {
+    const updates = Object.keys(req.body);
+    const user = await User.findOne({ _id: req.params.id });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Handle password update separately (hash the password if it's being updated)
+    if (updates.includes('password')) {
+      req.body.password = await bcrypt.hash(req.body.password, 8);
+    }
+
+    updates.forEach((update) => user[update] = req.body[update]);
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Delete user account
+exports.deleteUser = async (req, res) => {
+  try {
+    await req.user.deleteOne();  // Delete the logged-in user
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Get the user's profile
+exports.getProfile = async (req, res) => {
+  try {
+    await req.user.populate('products');  // Populate the associated products
+    res.json({ user: req.user });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

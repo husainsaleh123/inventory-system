@@ -2,13 +2,11 @@ const User = require('../../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Authentication middleware
-
+// Authentication middleware (currently not used due to no cookies)
 exports.auth = async (req, res, next) => {
   try {
     let token;
 
-    // ✅ Read token from cookie
     if (req.cookies && req.cookies.token) {
       token = req.cookies.token;
     } else {
@@ -36,7 +34,6 @@ exports.auth = async (req, res, next) => {
   }
 };
 
-
 // Create a new user
 exports.createUser = async (req, res, next) => {
   try {
@@ -51,7 +48,7 @@ exports.createUser = async (req, res, next) => {
     const user = new User(req.body);
     await user.save();
 
-    next();  // redirect to login
+    next(); // Proceed to redirect to login
   } catch (error) {
     res.status(400).render('auth/SignUp', {
       error: 'Something went wrong. Please try again.'
@@ -59,15 +56,13 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
-
-// Login user
-// Login user
+// Login user (no cookies)
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user || !await bcrypt.compare(password, user.password)) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).render('auth/SignIn', {
         error: 'Invalid email or password'
       });
@@ -75,15 +70,20 @@ exports.loginUser = async (req, res) => {
 
     const token = await user.generateAuthToken();
 
-    // ✅ Set token in HTTP-only cookie instead of query string
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: false, // true if using https
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    // Temporarily set data manually
+    res.locals.token = token;
+    res.locals.data = { user };
+
+    const productData = require('../product/productData');
+    const productViews = require('../product/productViews');
+
+    req.user = user;
+
+    // Call index logic directly
+    await productData.index(req, res, () => {
+      productViews.index(req, res);
     });
 
-    // ✅ Redirect without token in URL
-    res.redirect('/products');
   } catch (error) {
     res.status(400).render('auth/SignIn', {
       error: 'Something went wrong. Please try again.'
@@ -91,8 +91,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-
-// Update user information
+// Update user
 exports.updateUser = async (req, res) => {
   try {
     const updates = Object.keys(req.body);
@@ -102,7 +101,6 @@ exports.updateUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Handle password update separately (hash the password if it's being updated)
     if (updates.includes('password')) {
       req.body.password = await bcrypt.hash(req.body.password, 8);
     }
@@ -115,20 +113,20 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Delete user account
+// Delete user
 exports.deleteUser = async (req, res) => {
   try {
-    await req.user.deleteOne();  // Delete the logged-in user
+    await req.user.deleteOne();
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-// Get the user's profile
+// Get profile
 exports.getProfile = async (req, res) => {
   try {
-    await req.user.populate('products');  // Populate the associated products
+    await req.user.populate('products');
     res.json({ user: req.user });
   } catch (error) {
     res.status(400).json({ message: error.message });

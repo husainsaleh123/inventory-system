@@ -3,7 +3,7 @@ const Layout = require('../layouts/Layout')
 
 function Show(props) {
     // Destructure the product data passed from the server
-    const { _id, name, price, unit, stock, supplier, available, image } = props.product;
+    const { _id, name, price, stock, supplier, available, image } = props.product;
     const token = props.token; 
     
     return (

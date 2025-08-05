@@ -18,7 +18,7 @@ function Layout(props){
                     <div className="navbar-left">
                         <span className="logo">💎 Dar Altawawish</span>
                         <a className="nav-link" href={`/products?token=${props.token}`}>Products</a>
-                        <a className="nav-link" href={`/suppliers?token=${token}`}>Suppliers</a>
+                        <a className="nav-link" href={`/suppliers?token=${props.token}`}>Suppliers</a>
                         <a className="nav-link" href={`/orders?token=${token}`}>Orders</a>
                     </div>
                     <div className="navbar-right">

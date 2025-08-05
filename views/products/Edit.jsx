@@ -3,7 +3,7 @@ const Layout = require('../layouts/Layout')
 
 function Edit(props) {
     // Destructure the props to access product data
-    const { _id, image, name, price, unit, stock, supplier, available } = props.product;
+    const { _id, image, name, price, stock, supplier, available } = props.product;
     const token = props.token;
 
     return (
@@ -24,9 +24,6 @@ function Edit(props) {
                 </p>
                 <p>
                     Price: <input type="number" name="price" defaultValue={price} step="0.01" /><br />
-                </p>
-                <p>
-                    Unit: <input type="text" name="unit" defaultValue={unit} /><br />
                 </p>
                 <p>
                     Stock: <input type="number" name="stock" defaultValue={stock} /><br />

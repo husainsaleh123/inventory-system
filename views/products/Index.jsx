@@ -44,7 +44,6 @@ function Index(props) {
                                     <h3>{product.name}</h3>
                                 </a>
                                 <p>Price: {product.price}</p>
-                                <p>Unit: {product.unit}</p>
                                 <p>Stock: {product.stock}</p>
                                 <p>Supplier: {product.supplier}</p>
                                 <p>Available: {product.available ? "Is available" : "Is not available"}</p>

@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
         match: [/\S+@\S+\.\S+/, 'Please enter a valid email address'] 
     },  // Ensure the email is valid and unique
     password: { type: String, required: true },
-    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+    suppliers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Supplier' }]
 });
 
 // Hide password from JSON responses

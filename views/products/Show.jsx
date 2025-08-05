@@ -3,12 +3,13 @@ const React = require("react");
 function Show(props) {
     // Destructure the product data passed from the server
     const { _id, name, price, unit, stock, supplier, country, available, image } = props.product;
-
+    const token = props.token; 
+    
     return (
         <div>
             <h1>Product Details</h1>
             {/* Displays the product image if available */}
-             <a href={`/products`}>Go back to Index Page</a>
+             <a href={`/products?token=${token}`}>Go back to Index Page</a>
             <p><strong>Image:</strong></p>
             {image ? (
                 <img src={`/uploads/${image}`} alt={name} style={{ width: '200px', height: 'auto' }} />
@@ -26,12 +27,12 @@ function Show(props) {
 
             <br />
             {/* Edit Button - Links to the Edit page */}
-            <a href={`/products/${_id}/edit`}>
+            <a href={`/products/${_id}/edit?token=${token}`}>
                 <button>Edit Product</button>
             </a>
             
             {/* Delete Button - Submits a form to delete the product */}
-            <form action={`/products/${_id}?_method=DELETE`} method="POST">
+            <form action={`/products/${_id}?_method=DELETE&token=${token}`} method="POST">
                 <button type="submit">Delete Product</button>
             </form>
         </div>

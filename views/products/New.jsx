@@ -3,7 +3,8 @@ const React = require("react");
 function New(props) {
     // Access data passed via props (from the controller)
     const { name = "", price = "", unit = "", stock = "", supplier = "", country = "", available = false } = props;
-
+    const token = props.token;
+    
     return (
         <div>
             <h1>New Product</h1>

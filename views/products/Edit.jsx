@@ -3,12 +3,13 @@ const React = require("react");
 function Edit(props) {
     // Destructure the props to access product data
     const { _id, image, name, price, unit, stock, country, supplier, available } = props.product;
+    const token = props.token;
 
     return (
         <div>
             <h1>Edit Product</h1>
             <a href={`/products/${_id}`}>Go back to Index Page</a>
-            <form action={`/products/${_id}?_method=PUT`} method="POST" encType="multipart/form-data">
+            <form action={`/products/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
             
                 {/* Image upload functionality */}
                 <p>

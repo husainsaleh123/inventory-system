@@ -1,4 +1,11 @@
+const RESOURCE_PATH = '/products'
 const productViews = {
+    signUp(req, res, next){
+        res.render('/auth/SignUp')
+    },
+    signIn(req, res, next){
+        res.render('/auth/SignIn')
+    },
     // Render the list of all products
     index(req, res, next) {
         res.render("products/Index", res.locals.data); // Render the product list page
@@ -20,13 +27,21 @@ const productViews = {
     },
 
     // Redirect to the product list page after an action (e.g., after creating a product)
-    redirectHome(req, res, next) {
-        res.redirect("/products"); // Redirect to the product list page
+    redirectHome(req, res, next){
+        if(res.locals.data.token){
+        res.redirect(`${RESOURCE_PATH}?token=${res.locals.data.token}`)
+        }else {
+        res.redirect(RESOURCE_PATH)
+        } 
     },
 
     // Redirect to the product details page after an action (e.g., after editing a product)
-    redirectShow(req, res, next) {
-        res.redirect(`/products/${req.params.id}`); // Redirect to the individual product details page
+    redirectShow(req, res, next){
+        if(res.locals.data.token){
+        res.redirect(`${RESOURCE_PATH}/${req.params.id}?token=${res.locals.data.token}`)
+        }else {
+        res.redirect(`${RESOURCE_PATH}/${req.params.id}`)
+        } 
     }
 };
 

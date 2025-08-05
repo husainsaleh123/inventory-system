@@ -7,8 +7,8 @@ function New(props) {
     return (
         <div>
             <h1>New Product</h1>
-            <a href={`/products`}>Go back to Index Page</a>
-            <form action={`/products`} method="POST" encType="multipart/form-data">
+            <a href={`/products?token=${props.token}`}>Go back to Index Page</a>
+            <form action={`/products?token=${props.token}`} method="POST" encType="multipart/form-data">
                 <p>
                     Image: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
                 </p>

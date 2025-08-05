@@ -7,9 +7,6 @@ function SignIn(props) {
             <h1>🔐 Sign In</h1>
             <h2>Welcome Back!</h2>
 
-            {/* Render error messages if available */}
-            {props.error && <div className="alert alert-danger">{props.error}</div>}
-
             <form action="/users/login" method="POST">  {/* Make sure form points to /auth/login */}
                 <div>
                     <label htmlFor="email">Email:</label>
@@ -41,7 +38,7 @@ function SignIn(props) {
             </form>
 
             <div>
-                <p>Don't have an account? <a href="/users/signup">Sign up here</a></p>
+                <p>Don't have an account? <a href="/users">Sign up here</a></p>
             </div>
         </Layout>
     );

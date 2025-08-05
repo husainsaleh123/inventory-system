@@ -18,11 +18,6 @@ const viewController = {
   redirectToLogin(req, res, next) {
     res.redirect('/users/login');  // After successful signup, redirect to login
   },
-
-  // Optional: Redirect to the homepage or dashboard if logged in
-  redirectHome(req, res, next) {
-    res.redirect('/products');  // Redirect to the products page or homepage after login
-  }
 };
 
 module.exports = viewController;

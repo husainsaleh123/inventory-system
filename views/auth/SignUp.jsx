@@ -7,9 +7,6 @@ function SignUp(props) {
             <h1>📝 Sign Up</h1>
             <h2>Join The Greatest Of All Time!</h2>
 
-            {/* Render error messages if available */}
-            {props.error && <div className="alert alert-danger">{props.error}</div>}
-
             <form action="/users" method="POST"> {/* Ensure this is the correct route */}
                 <div>
                     <label htmlFor="name">Full Name:</label>

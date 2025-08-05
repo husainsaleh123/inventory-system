@@ -4,7 +4,8 @@ function Layout(props){
  return(
     <html>
         <head>
-            <title>{!props.product?.name ? 'Best Jewellery and Gemstones Shop!' : `${props.product.name} - Dar Al Tawaweesh`}</title>
+            <title>{!props.product?.name ? 'Dar Al Tawawish' : `${props.product.name} - Dar Al Tawaweesh`}</title>
+            <link rel="stylesheet" href="/styles.css" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </head>
         <body>

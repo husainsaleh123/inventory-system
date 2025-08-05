@@ -1,4 +1,5 @@
 const React = require("react");
+const Layout = require("../layouts/Layout"); // make sure this import is correct!
 
 function New(props) {
     // Access data passed via props (from the controller)
@@ -6,6 +7,7 @@ function New(props) {
     const token = props.token;
     
     return (
+        <Layout>
         <div>
             <h1>New Product</h1>
             <a href={`/products?token=${props.token}`}>Go back to Index Page</a>
@@ -13,7 +15,7 @@ function New(props) {
                 <p>
                     Image: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
                 </p>
-                <p>Name: <input type="text" name="name" defaultValue={name} /><br /></p>
+                <p>Product Name: <input type="text" name="name" defaultValue={name} /><br /></p>
                 <p>Price: <input type="number" name="price" defaultValue={price} min="0" step="0.05" /><br /></p>
                 <p>Unit: <input type="text" name="unit" defaultValue={unit} /><br /></p> {/* Fixed defaultValue */}
                 <p>Stock: <input type="number" name="stock" defaultValue={stock} /><br /></p>
@@ -27,10 +29,22 @@ function New(props) {
                     )}
                     <br />
                 </p>
-                <input type="submit" value="Add Product" />
+                
+                <div className="d-flex gap-2">
+                    <button type="submit" className="btn btn-primary">
+                        ➕ Add Product
+                    </button>
+                    <a href={`/products?token=${token}`} className="btn btn-secondary">
+                        ← Back to All Products
+                    </a>
+                </div>
+                
+
+                {/* <input type="submit" value="Add Product" /> */}
             </form>
         </div>
-    );
+        </Layout>
+    )
 }
 
 module.exports = New;

@@ -8,8 +8,16 @@ function Index(props) {
     return (
         <Layout>
             <div>
-                <h1>Products Page</h1>
-                <a href={`/products/new?token=${token}`}>Add New Product</a>
+                <h1>All products</h1>
+                {/* <a href={`/products/new?token=${token}`}>Add New Product</a> */}
+
+                <div className="d-flex justify-between align-center mb-3">
+                <h2>Your Product Collection</h2>
+                <a href={`/products/new?token=${token}`} className="btn btn-primary">
+                    ➕ Add New Product
+                </a>
+                </div>
+
 
                 {products.length === 0 ? (
                     <p>No products yet! Add your first product to get started.</p>

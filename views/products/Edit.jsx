@@ -1,4 +1,5 @@
-const React = require("react");
+const React = require("react")
+const Layout = require('../layouts/Layout')
 
 function Edit(props) {
     // Destructure the props to access product data
@@ -7,7 +8,8 @@ function Edit(props) {
 
     return (
         <div>
-            <h1>Edit Product</h1>
+            <Layout>
+            <h1>✏️ Edit {props.product.name}</h1>
             <a href={`/products/${_id}`}>Go back to Index Page</a>
             <form action={`/products/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
             
@@ -45,10 +47,22 @@ function Edit(props) {
                     <br />
                 </p>
 
-                <input type="submit" value="Update Product" />
+                {/* <input type="submit" value="Update Product" /> */}
+
+                               
+                <div className="d-flex gap-2">
+                    <button type="submit" className="btn btn-primary">
+                        💾 Update Product
+                    </button>
+                    <a href={`/products/${_id}?token=${token}`} className="btn btn-secondary">
+                        ← Back to {props.product.name}
+                    </a>
+                </div>
+
             </form>
+            </Layout>
         </div>
-    );
+    )
 }
 
 module.exports = Edit;

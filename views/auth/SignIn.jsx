@@ -5,10 +5,10 @@ function SignIn(props) {
     return (
         <Layout>
             <h1>🔐 Sign In</h1>
-            <h2>Welcome Back!</h2>
+            <h2 className="text-center mb-3">Welcome Back!</h2>
 
             <form action="/users/login" method="POST">  {/* Make sure form points to /auth/login */}
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input 
                         type="email" 
@@ -19,7 +19,7 @@ function SignIn(props) {
                     />
                 </div>
 
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input 
                         type="password" 
@@ -30,14 +30,14 @@ function SignIn(props) {
                     />
                 </div>
 
-                <div>
+                <div className="d-flex gap-2">
                     <button type="submit" className="btn btn-primary">
                         🔐 Sign In
                     </button>
                 </div>
             </form>
 
-            <div>
+            <div className="text-center mt-3">
                 <p>Don't have an account? <a href="/users">Sign up here</a></p>
             </div>
         </Layout>

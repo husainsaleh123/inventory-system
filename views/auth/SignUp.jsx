@@ -3,7 +3,7 @@ const Layout = require('../layouts/Layout');
 
 function SignUp(props) {
     return (
-        <Layout>
+         <Layout hideLayout={true}>
             <h1>📝 Sign Up</h1>
             <h2>Join The Greatest Of All Time!</h2>
 

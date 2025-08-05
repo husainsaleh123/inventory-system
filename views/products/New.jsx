@@ -3,7 +3,7 @@ const Layout = require("../layouts/Layout"); // make sure this import is correct
 
 function New(props) {
     // Access data passed via props (from the controller)
-    const { name = "", price = "", unit = "", stock = "", supplier = "", country = "", available = false } = props;
+    const { name = "", price = "", unit = "", stock = "", supplier = "", available = false } = props;
     const token = props.token;
     
     return (
@@ -20,7 +20,6 @@ function New(props) {
                 <p>Unit: <input type="text" name="unit" defaultValue={unit} /><br /></p> {/* Fixed defaultValue */}
                 <p>Stock: <input type="number" name="stock" defaultValue={stock} /><br /></p>
                 <p>Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br /></p>
-                <p>Country: <input type="text" name="country" defaultValue={country} /><br /></p>
                 <p>Available:
                     {available ? (
                         <input type="checkbox" name="available" defaultChecked />

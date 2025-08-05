@@ -3,12 +3,12 @@ const Layout = require('../layouts/Layout')
 
 function Edit(props) {
     // Destructure the props to access product data
-    const { _id, image, name, price, unit, stock, country, supplier, available } = props.product;
+    const { _id, image, name, price, unit, stock, supplier, available } = props.product;
     const token = props.token;
 
     return (
         <div>
-            <Layout>
+            <Layout token={token}>
             <h1>✏️ Edit {props.product.name}</h1>
             <a href={`/products/${_id}`}>Go back to Index Page</a>
             <form action={`/products/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
@@ -33,9 +33,6 @@ function Edit(props) {
                 </p>
                 <p>
                     Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br />
-                </p>
-                <p>
-                    Country: <input type="text" name="country" defaultValue={country} /><br />
                 </p>
                 <p>
                     Available:

@@ -6,7 +6,7 @@ function Index(props) {
     const token = props.token;
 
     return (
-        <Layout>
+        <Layout token={props.token}>
             <div>
                 <h1>All products</h1>
                 {/* <a href={`/products/new?token=${token}`}>Add New Product</a> */}
@@ -47,7 +47,6 @@ function Index(props) {
                                 <p>Unit: {product.unit}</p>
                                 <p>Stock: {product.stock}</p>
                                 <p>Supplier: {product.supplier}</p>
-                                <p>Country: {product.country}</p>
                                 <p>Available: {product.available ? "Is available" : "Is not available"}</p>
                             </li>
                         ))}

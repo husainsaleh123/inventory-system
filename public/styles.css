@@ -191,3 +191,56 @@ input[type="checkbox"] {
 .mt-3 {
     margin-top: 1rem;
 }
+
+.navbar {
+    background-color: #0b3d91;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    color: white;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: #1b4db5;
+}
+
+.logout {
+    font-weight: bold;
+}
+
+footer {
+    background-color: #0b3d91;
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 0.9rem;
+    margin-top: 40px;
+}

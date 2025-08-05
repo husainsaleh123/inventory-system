@@ -3,11 +3,11 @@ const Layout = require('../layouts/Layout')
 
 function Show(props) {
     // Destructure the product data passed from the server
-    const { _id, name, price, unit, stock, supplier, country, available, image } = props.product;
+    const { _id, name, price, unit, stock, supplier, available, image } = props.product;
     const token = props.token; 
     
     return (
-        <Layout>
+        <Layout token={props.token}>
         <div>
             <h1>{props.product.name} Details</h1>
             {/* Displays the product image if available */}
@@ -23,7 +23,6 @@ function Show(props) {
             <p><strong>Unit:</strong> {unit}</p>
             <p><strong>Stock:</strong> {stock}</p>
             <p><strong>Supplier:</strong> {supplier}</p>
-            <p><strong>Country:</strong> {country}</p>
             <p><strong>Available:</strong> {available ? "Yes" : "No"}</p>
 
             <br />
@@ -35,9 +34,11 @@ function Show(props) {
                     <a href={`/products/${_id}/edit?token=${token}`} className="btn btn-primary">
                         ✏️ Edit Product
                     </a>
-                      <a href={`/products/${_id}?_method=DELETE&token=${token}`} className="btn btn-primary">
+                   <form action={`/products/${_id}?_method=DELETE&token=${token}`} method="POST">
+                        <button type="submit" className="btn btn-primary">
                         🗑️ Delete Product
-                    </a>
+                        </button>
+                    </form>
                 </div>
         </div>
         </Layout>

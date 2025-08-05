@@ -3,7 +3,7 @@ const Layout = require('../layouts/Layout');
 
 function SignIn(props) {
     return (
-        <Layout>
+         <Layout hideLayout={true}>
             <h1>🔐 Sign In</h1>
             <h2 className="text-center mb-3">Welcome Back!</h2>
 

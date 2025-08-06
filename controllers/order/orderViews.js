@@ -1,24 +1,48 @@
-
-const supplierViews = {
+const RESOURCE_PATH = '/orders'
+const orderViews = {
+    signUp(req, res, next){
+        res.render('/auth/SignUp')
+    },
+    signIn(req, res, next){
+        res.render('/auth/SignIn')
+    },
+    // Render the list of all orders
     index(req, res, next) {
-        res.render("suppliers/Index", res.locals.data); // Render all suppliers
+        res.render("orders/Index", res.locals.data); // Render the orders list page
     },
+
+    // Render the page for creating a new product
     newView(req, res, next) {
-        res.render("suppliers/New", res.locals.data);  // Render the New supplier form
+        res.render("orders/New", res.locals.data); // Render the new orders form
     },
+
+    // Render the page to edit a product
     edit(req, res, next) {
-        res.render("suppliers/Edit", res.locals.data);  // Render the Edit supplier form
+        res.render("orders/Edit", res.locals.data); // Render the edit orders form
     },
+
+    // Render the page to show product details
     show(req, res, next) {
-        res.render("suppliers/Show", res.locals.data);  // Render the Show supplier page
+        res.render("orders/Show", res.locals.data); // Render the orders details page
     },
-    redirectHome(req, res, next) {
-        res.redirect("/suppliers");  // Redirect to the supplier index page after action
+
+    // Redirect to the orders list page after an action (e.g., after creating a orders)
+    redirectHome(req, res, next){
+        if(res.locals.data.token){
+        res.redirect(`${RESOURCE_PATH}?token=${res.locals.data.token}`)
+        }else {
+        res.redirect(RESOURCE_PATH)
+        } 
     },
-    redirectShow(req, res, next) {
-        res.redirect(`/suppliers/${req.params.id}`);  // Redirect to the Show supplier page after update
+
+    // Redirect to the product details page after an action (e.g., after editing a product)
+    redirectShow(req, res, next){
+        if(res.locals.data.token){
+        res.redirect(`${RESOURCE_PATH}/${req.params.id}?token=${res.locals.data.token}`)
+        }else {
+        res.redirect(`${RESOURCE_PATH}/${req.params.id}`)
+        } 
     }
 };
 
-module.exports = supplierViews;
-
+module.exports = orderViews;

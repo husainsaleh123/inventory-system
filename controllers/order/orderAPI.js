@@ -1,74 +1,31 @@
-const supplier = require('../../models/supplier');
-const supplierAPI = {}
+const order = require('../../models/order.js');
 
-const normalizeAvailableField = (body) => {
-  body.available = body.available === true || body.available === 'on'
-  return body
-}
+const orderAPI = {
 
-// GET /suppliers - list all suppliers as JSON
-supplierAPI.index = async (req, res) => {
-  try {
-    const suppliers = await supplier.find({})
-    res.status(200).json(suppliers)
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-}
+    // GET /orders - list all orders as JSON
+    index (req, res) {
+      res.json(res.locals.data.orders)
+    },
 
-// GET /suppliers/:id - get one supplier by id
-supplierAPI.show = async (req, res) => {
-  try {
-    const supplier = await supplier.findById(req.params.id)
-    if (!supplier) {
-      return res.status(404).json({ error: 'supplier not found' })
+    // GET /orders/:id - get one order by id
+    show (req, res) {
+      res.json(res.locals.data.order)
+    },
+
+    // POST /orders - create a new order
+    create (req, res) {
+        res.status(201).json(res.locals.data.order)
+    },
+
+    // PUT /orders/:id - update order by id
+    update (req, res) {
+        res.json(res.locals.data.order)
+    },
+
+    // DELETE /orders/:id - delete order by id
+    destroy (req, res) {
+        res.status(200).json({ message: 'order deleted' })
     }
-    res.status(200).json(supplier)
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
 }
 
-// POST /suppliers - create a new supplier
-supplierAPI.create = async (req, res) => {
-  normalizeAvailableField(req.body)
-  try {
-    const newsupplier = await supplier.create(req.body)
-    res.status(201).json(newsupplier)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-}
-
-// PUT /suppliers/:id - update supplier by id
-supplierAPI.update = async (req, res) => {
-  normalizeAvailableField(req.body)
-  try {
-    const updatedsupplier = await supplier.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    )
-    if (!updatedsupplier) {
-      return res.status(404).json({ error: 'supplier not found' })
-    }
-    res.status(200).json(updatedsupplier)
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-}
-
-// DELETE /suppliers/:id - delete supplier by id
-supplierAPI.destroy = async (req, res) => {
-  try {
-    const deleted = await supplier.findByIdAndDelete(req.params.id)
-    if (!deleted) {
-      return res.status(404).json({ error: 'supplier not found' })
-    }
-    res.status(200).json({ message: 'supplier deleted' })
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-}
-
-module.exports = supplierAPI
+module.exports = orderAPI

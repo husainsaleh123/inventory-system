@@ -54,7 +54,8 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="number"],
-input[type="password"] {
+input[type="password"],
+input[type="Date"] {
     width: 100%;
     padding: 12px 16px;
     border: 2px solid #e0e0e0;

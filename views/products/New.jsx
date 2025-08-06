@@ -5,7 +5,7 @@ function New(props) {
     // Access data passed via props (from the controller)
     const { name = "", price = "", stock = "", supplier = "", available = false } = props;
     const token = props.token;
-    
+
     return (
         <Layout>
         <div>
@@ -17,7 +17,6 @@ function New(props) {
                 </p>
                 <p>Product Name: <input type="text" name="name" defaultValue={name} /><br /></p>
                 <p>Price: <input type="number" name="price" defaultValue={price} min="0" step="0.05" /><br /></p>
-            
                 <p>Stock: <input type="number" name="stock" defaultValue={stock} /><br /></p>
                 <p>Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br /></p>
                 <p>Available:
@@ -28,7 +27,7 @@ function New(props) {
                     )}
                     <br />
                 </p>
-                
+
                 <div className="d-flex gap-2">
                     <button type="submit" className="btn btn-primary">
                         ➕ Add Product
@@ -37,7 +36,7 @@ function New(props) {
                         ← Back to All Products
                     </a>
                 </div>
-                
+
 
                 {/* <input type="submit" value="Add Product" /> */}
             </form>

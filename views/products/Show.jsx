@@ -5,7 +5,7 @@ function Show(props) {
     // Destructure the product data passed from the server
     const { _id, name, price, stock, supplier, available, image } = props.product;
     const token = props.token; 
-    
+
     return (
         <Layout token={props.token}>
         <div>
@@ -17,10 +17,9 @@ function Show(props) {
             ) : (
                 <img src="/uploads/default-image.jpg" alt="Default" style={{ width: '200px', height: 'auto' }} />
             )}
-            
+
             <p><strong>Name:</strong> {name}</p>
             <p><strong>Price:</strong> {price}</p>
-            <p><strong>Unit:</strong> {unit}</p>
             <p><strong>Stock:</strong> {stock}</p>
             <p><strong>Supplier:</strong> {supplier}</p>
             <p><strong>Available:</strong> {available ? "Yes" : "No"}</p>

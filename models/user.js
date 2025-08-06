@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
     },  // Ensure the email is valid and unique
     password: { type: String, required: true },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-    suppliers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Supplier' }]
+    suppliers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Supplier' }],
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 });
 
 // Hide password from JSON responses

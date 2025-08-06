@@ -1,46 +1,36 @@
 const express = require("express");
-const multer = require('multer');
-const path = require("path");  // Import path module for file handling
+// const multer = require('multer');
+// const path = require("path");
 const router = express.Router();
-const supplierViews = require("./supplierViews");  // Corrected import for supplierViews
-const supplierData = require("./supplierData");
+const orderViews = require("./orderViews");
+const orderData = require("./orderData");
+const authDataController = require('../auth/dataController.js');
 
-// Multer setup to save uploaded images in the 'public/uploads' directory
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');  // The logo image will be stored in 'public/uploads/'
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));  // Set a unique filename
-    }
-});
 
-const upload = multer({ storage: storage });  // Initializes the multer through an upload variable
+// INDEX - Show all orders
+router.get('/', authDataController.auth
+    /* check if the token exists in the header or the query, set req.user and res.locals.data.token */ , 
+    orderData.index
+    /*grab and save the logged in user's fruits */, 
+    orderViews.index
+    /* display the logged in users fruits and also the link to the new page with the token*/
+);
+// NEW - Show form to create new order
+router.get("/new", authDataController.auth, orderViews.newView);
 
-// Route for creating a new supplier with image upload
-router.post("/", upload.single('image'), supplierData.create, supplierViews.redirectHome);  
-// Route to edit a supplier with image upload
-router.put("/:id", upload.single('image'), supplierData.update, supplierViews.redirectShow);  
+// DELETE - Delete order
+router.delete("/:id", authDataController.auth, orderData.destroy, orderViews.redirectHome);
 
-// Index - Show all suppliers
-router.get("/", supplierData.index, supplierViews.index);
+// UPDATE - Submit edited order
+router.put("/:id", authDataController.auth, orderData.update, orderViews.redirectShow);
 
-// New - Show form to create a new supplier
-router.get("/new", supplierViews.newView);
+// CREATE - Submit new order
+router.post("/", authDataController.auth, orderData.create, orderViews.redirectHome);
 
-// Destroy - Handle supplier deletion
-router.delete("/:id", supplierData.destroy, supplierViews.redirectHome);
+// EDIT - Show edit form
+router.get("/:id/edit", authDataController.auth, orderData.show, orderViews.edit);
 
-// Update - Handle updating an existing supplier
-router.put("/:id", supplierData.update, supplierViews.redirectShow);
-
-// Create - Handle new supplier creation
-router.post("/", supplierData.create, supplierViews.redirectHome);
-
-// Edit - Show form to edit an existing supplier
-router.get("/:id/edit", supplierData.show, supplierViews.edit);
-
-// Show - Show details of a specific supplier
-router.get("/:id", supplierData.show, supplierViews.show);
+// SHOW - Individual order
+router.get("/:id", authDataController.auth, orderData.show, orderViews.show);
 
 module.exports = router;

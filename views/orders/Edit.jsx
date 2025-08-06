@@ -11,7 +11,7 @@ function Edit(props) {
                 <h1>✏️ Edit order </h1>
                 <a href={`/orders/${_id}`}>Go back to Index Page</a>
 
-                <form action={`/orders/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
+                <form action={`/orders/${_id}?_method=PUT&token=${token}`} method="POST">
      
                 <p> Product: <input type="text" name="productName" defaultValue={productName} /><br/></p>
                 <p> Supplier: <input type="text" name="supplierName" defaultValue={supplierName} /><br /></p>

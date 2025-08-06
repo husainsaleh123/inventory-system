@@ -12,6 +12,9 @@ function New(props) {
             <h1>New Order</h1>
             <a href={`/orders?token=${props.token}`}>Go back to Index Page</a>
             <form action={`/orders?token=${props.token}`} method="POST">
+                    <p>
+                    Image: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
+                    </p>    
                     <p>Product: <input type="text" name="productName" defaultValue={productName} required /></p>
                     <p>Supplier: <input type="text" name="supplierName" defaultValue={supplierName} required /></p>
                     <p>Link: <input type="text" name="link" defaultValue={link} required /></p>

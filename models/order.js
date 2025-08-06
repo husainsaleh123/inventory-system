@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
+    image: { type: String, default: 'path_to_default_image.jpg' }, // Image URL, defaults to default image
     productName: { type: String, required: true }, //must be a product that's already in the products page
     supplierName: { type: String, required: true }, //manually typing supplier name, must be stored in the suppliers model in prior
     link: { type: String, required: true }, //contains the order link from actual client website

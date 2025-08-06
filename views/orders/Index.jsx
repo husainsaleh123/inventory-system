@@ -23,7 +23,19 @@ function Index(props) {
                     <ul className="order-list">
                         {orders.map((order) => (
                             <li key={order._id} className="order-item">
-
+                                {order.image ? (
+                                    <img
+                                        src={`/uploads/${order.image}`}
+                                        alt={order.productName}
+                                        style={{ width: '100px', height: 'auto' }}
+                                    />
+                                ) : (
+                                    <img
+                                        src="/uploads/default-image.jpg"
+                                        alt="Default"
+                                        style={{ width: '100px', height: 'auto' }}
+                                    />
+                                )}
                                 {/* Order Info */}
                                 <div>
                                     <a href={`/orders/${order._id}?token=${token}`}>

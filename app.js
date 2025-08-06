@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 app.use(morgan('dev'));
 
 // Register routes for products

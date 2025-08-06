@@ -1,44 +1,96 @@
 const React = require("react");
-const Layout = require("../layouts/Layout"); // make sure this import is correct!
+const Layout = require("../layouts/Layout");
 
 function New(props) {
-    // Access data passed via props (from the controller)
-    const {productName = "", supplierName = "", link = "", status = "", date = "", quantity = "", total = ""} = props;
-    const token = props.token;
-    
-    return (
-        <Layout token={props.token}>
-        <div>
-            <h1>New Order</h1>
-            <a href={`/orders?token=${props.token}`}>Go back to Index Page</a>
-            <form action={`/orders?token=${props.token}`} method="POST">
-                    <p>
-                    Image: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
-                    </p>    
-                    <p>Product: <input type="text" name="productName" defaultValue={productName} required /></p>
-                    <p>Supplier: <input type="text" name="supplierName" required /></p>
-                    <p>Link: <input type="text" name="link" defaultValue={link} required /></p>
-                    <p>Status: <input type="text" name="status" defaultValue={status} required /></p>
-                    <p> Date: <input type="date" name="date" defaultValue={date ? new Date(date).toISOString().split('T')[0] : ''} required /><br /></p>
-                    <p>Quantity: <input type="number" name="quantity" defaultValue={quantity} required /></p>
-                    <p>Total: <input type="number" name="total" defaultValue={total} required /></p>
+  const {
+    token,
+    productId = "",
+    productName = "",
+    productImage = "",
+    productPrice = "",
+    supplierName = "",
+  } = props;
 
-               
-                <div className="d-flex gap-2">
-                    <button type="submit" className="btn btn-primary">
-                        ➕ Add order
-                    </button>
-                    <a href={`/orders?token=${token}`} className="btn btn-secondary">
-                        ← Back to All orders
-                    </a>
-                </div>
-                
+  return (
+    <Layout token={token}>
+      <div>
+        <h1 style={{ color: 'green', textAlign: 'center' }}>New Order</h1>
+        <a href={`/orders?token=${token}`}>← Back to Orders</a>
 
-                {/* <input type="submit" value="Add order" /> */}
-            </form>
-        </div>
-        </Layout>
-    )
+        <form action={`/orders?token=${token}`} method="POST" encType="multipart/form-data">
+          {/* Image Preview + Hidden Input */}
+          {productImage && (
+            <div>
+              <strong>Product Image:</strong><br />
+              <img src={`/uploads/${productImage}`} alt="Selected" style={{ width: '150px' }} />
+              <input type="hidden" name="image" value={productImage} />
+            </div>
+          )}
+
+          {/* Product Name + ID */}
+          <p>
+            <strong>Product:</strong>
+            <input
+              type="text"
+              name="productName"
+              value={productName}
+              readOnly
+              className="form-control"
+            />
+            <input type="hidden" name="productId" value={productId} />
+          </p>
+
+          {/* Supplier Name (read-only) */}
+          <p>
+            <strong>Supplier Name:</strong>
+            <input
+              type="text"
+              name="supplierName"
+              value={supplierName}
+              readOnly
+              className="form-control"
+            />
+          </p>
+
+          {/* Link */}
+          <p>
+            Link:
+            <input type="text" name="link" className="form-control" required />
+          </p>
+
+         {/* Status */}
+            <p>
+            Status:
+            <select name="status" className="form-control" required>
+                <option value="">-- Select Status --</option>
+                <option value="Preparing">Preparing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Received">Received</option>
+            </select>
+            </p>
+
+          {/* Date */}
+          <p>
+            Date:
+            <input type="date" name="date" className="form-control" required />
+          </p>
+
+          {/* Quantity (used by backend to auto-calculate total) */}
+          <p>
+            Quantity:
+            <input type="number" name="quantity" className="form-control" required />
+          </p>
+
+          {/* Removed "Total" field – calculated in backend */}
+
+          <button type="submit" className="btn btn-success">
+            ➕ Add Order
+          </button>
+        </form>
+      </div>
+    </Layout>
+  );
 }
 
 module.exports = New;

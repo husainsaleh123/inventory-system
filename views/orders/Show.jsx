@@ -2,7 +2,6 @@ const React = require("react");
 const Layout = require('../layouts/Layout')
 
 function Show(props) {
-    // Destructure the order data passed from the server
     const { _id, image, productName, supplierName, link, status, date, quantity, total } = props.order;
     const token = props.token;
     
@@ -26,7 +25,7 @@ function Show(props) {
                 <p><strong>Total:</strong> {total}</p>
             <br />
 
-            <div className="d-flex gap-2">
+                     <div className="d-flex gap-2">
                     <a href={`/orders?token=${props.token}`} className="btn btn-secondary">
                         ← 📃 All orders
                     </a>

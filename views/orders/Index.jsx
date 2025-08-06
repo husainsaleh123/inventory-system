@@ -11,10 +11,9 @@ function Index(props) {
                 <h1 style={{ textAlign: 'center', color: 'seagreen' }}>All orders</h1>
 
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Your order Collection</h2>
-                    <a href={`/orders/new?token=${token}`} className="btn btn-success">
+                    {/* <a href={`/orders/new?token=${token}`} className="btn btn-success">
                         ➕ Add New order
-                    </a>
+                    </a> */}
                 </div>
 
                 {orders.length === 0 ? (
@@ -38,9 +37,9 @@ function Index(props) {
                                 )}
                                 {/* Order Info */}
                                 <div>
-                                    <a href={`/orders/${order._id}?token=${token}`}>
-                                        <h3>Order details</h3>
-                                    </a>
+                                   
+                                        <h3> {order.productName} Order</h3>
+                               
                                     <p><strong>Product:</strong> {order.productName}</p>
                                     <p><strong>Supplier:</strong> {order.supplierName}</p>
                                     <p><strong>Link:</strong> {order.link}</p>
@@ -48,6 +47,12 @@ function Index(props) {
                                     <p><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
                                     <p><strong>Quantity:</strong> {order.quantity}</p>
                                     <p><strong>Total:</strong> {order.total}</p>
+
+                                    <div className="d-flex gap-2">
+                                    <a href={`/orders/${order._id}?token=${token}`} className="btn btn-secondary">
+                                        👁️ View
+                                    </a>
+                                    </div>
                                 </div>
 
                             </li>

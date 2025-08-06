@@ -1,5 +1,5 @@
 const React = require("react");
-const Layout = require("../layouts/Layout"); // make sure this import is correct!
+const Layout = require("../layouts/Layout"); 
 
 function New(props) {
     // Access data passed via props (from the controller)
@@ -17,7 +17,7 @@ function New(props) {
                 </p>
                 <p>Supplier Name: <input type="text" name="name" defaultValue={name} /><br /></p>
                 <p>Address: <input type="text" name="address" defaultValue={address}/><br /></p>
-                <p>Phone: <input type="number" name="phone" defaultValue={phone} /><br /></p> {/* Fixed defaultValue */}
+                <p>Phone: <input type="number" name="phone" defaultValue={phone} /><br /></p> 
                 <p>Email: <input type="text" name="email" defaultValue={email} /><br /></p>
                
                 <div className="d-flex gap-2">

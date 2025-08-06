@@ -9,7 +9,6 @@ function Edit(props) {
         <div>
             <Layout token={token}>
                 <h1>✏️ Edit {name}</h1>
-                <a href={`/suppliers/${_id}`}>Go back to Index Page</a>
 
                 <form action={`/suppliers/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
                     {/* Logo upload */}

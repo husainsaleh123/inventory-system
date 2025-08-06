@@ -40,17 +40,29 @@ function Index(props) {
                                     />
                                 )}
 
-                                <a href={`/products/${product._id}?token=${token}`}>
-                                    <h3>{product.name}</h3>
-                                </a>
+                                <p>Product Name: {product.name}</p>
                                 <p>Price: {product.price}</p>
                                 <p>Stock: {product.stock}</p>
                                 <p>Supplier: {product.supplier?.name || 'No Supplier'}</p>
                                 <p>Available: {product.available ? "Is available" : "Is not available"}</p>
+
+                                <div className="d-flex gap-2">
+                                <a href={`/products/${product._id}?token=${token}`} className="btn btn-secondary">
+                                    👁️ View
+                                </a>
+                                <a href={`/orders/new?token=${token}&productId=${product._id}`} className="btn btn-secondary">
+                                    🛒 Order
+                                </a>
+                                 </div>
+
                             </li>
+
                         ))}
                     </ul>
                 )}
+
+
+
             </div>
         </Layout>
     );

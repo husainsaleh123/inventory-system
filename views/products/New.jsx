@@ -54,8 +54,6 @@ function New(props) {
                     </a>
                 </div>
 
-
-                {/* <input type="submit" value="Add Product" /> */}
             </form>
         </div>
         </Layout>

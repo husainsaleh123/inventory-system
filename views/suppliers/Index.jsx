@@ -32,12 +32,16 @@ function Index(props) {
 
                                 {/* Supplier Info */}
                                 <div>
-                                    <a href={`/suppliers/${supplier._id}?token=${token}`}>
-                                        <h3>{supplier.name}</h3>
-                                    </a>
+                                    <h3>{supplier.name}</h3>
                                     <p><strong>Address:</strong> {supplier.address}</p>
                                     <p><strong>Phone:</strong> {supplier.phone}</p>
                                     <p><strong>Email:</strong> {supplier.email}</p>
+
+                                    <div className="d-flex gap-2">
+                                    <a href={`/suppliers/${supplier._id}?token=${token}`} className="btn btn-secondary">
+                                        👁️ View
+                                    </a>
+                                    </div>
                                 </div>
                             </li>
                         ))}

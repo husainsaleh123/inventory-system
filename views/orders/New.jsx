@@ -16,7 +16,7 @@ function New(props) {
                     Image: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
                     </p>    
                     <p>Product: <input type="text" name="productName" defaultValue={productName} required /></p>
-                    <p>Supplier: <input type="text" name="supplierName" defaultValue={supplierName} required /></p>
+                    <p>Supplier: <input type="text" name="supplierName" required /></p>
                     <p>Link: <input type="text" name="link" defaultValue={link} required /></p>
                     <p>Status: <input type="text" name="status" defaultValue={status} required /></p>
                     <p> Date: <input type="date" name="date" defaultValue={date ? new Date(date).toISOString().split('T')[0] : ''} required /><br /></p>

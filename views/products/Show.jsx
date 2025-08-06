@@ -21,7 +21,7 @@ function Show(props) {
             <p><strong>Name:</strong> {name}</p>
             <p><strong>Price:</strong> {price}</p>
             <p><strong>Stock:</strong> {stock}</p>
-            <p><strong>Supplier:</strong> {supplier}</p>
+            <p><strong>Supplier:</strong> {supplier?.name || 'No Supplier'}</p>
             <p><strong>Available:</strong> {available ? "Yes" : "No"}</p>
 
             <br />

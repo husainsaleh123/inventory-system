@@ -1,47 +1,60 @@
-const RESOURCE_PATH = '/products'
+const Supplier = require('../../models/supplier'); // ✅ import Supplier model
+const RESOURCE_PATH = '/products';
+
 const productViews = {
-    signUp(req, res, next){
-        res.render('/auth/SignUp')
-    },
-    signIn(req, res, next){
-        res.render('/auth/SignIn')
-    },
-    // Render the list of all products
-    index(req, res, next) {
-        res.render("products/Index", res.locals.data); // Render the product list page
+    signUp(req, res, next) {
+        res.render('/auth/SignUp');
     },
 
-    // Render the page for creating a new product
-    newView(req, res, next) {
-        res.render("products/New", res.locals.data); // Render the new product form
+    signIn(req, res, next) {
+        res.render('/auth/SignIn');
+    },
+
+    // Render the list of all products
+    index(req, res, next) {
+        res.render("products/Index", res.locals.data); 
+    },
+
+    // ✅ Render the page for creating a new product WITH supplier list
+    async newView(req, res, next) {
+        try {
+            const suppliers = await Supplier.find({}, 'name'); // fetch supplier names only
+            res.render("products/New", {
+                ...res.locals.data,
+                suppliers,
+                token: req.query.token || req.headers.authorization?.split(" ")[1]
+            });
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
     },
 
     // Render the page to edit a product
     edit(req, res, next) {
-        res.render("products/Edit", res.locals.data); // Render the edit product form
+        res.render("products/Edit", res.locals.data);
     },
 
     // Render the page to show product details
     show(req, res, next) {
-        res.render("products/Show", res.locals.data); // Render the product details page
+        res.render("products/Show", res.locals.data);
     },
 
-    // Redirect to the product list page after an action (e.g., after creating a product)
-    redirectHome(req, res, next){
-        if(res.locals.data.token){
-        res.redirect(`${RESOURCE_PATH}?token=${res.locals.data.token}`)
-        }else {
-        res.redirect(RESOURCE_PATH)
-        } 
+    // Redirect to product list after create/delete
+    redirectHome(req, res, next) {
+        if (res.locals.data.token) {
+            res.redirect(`${RESOURCE_PATH}?token=${res.locals.data.token}`);
+        } else {
+            res.redirect(RESOURCE_PATH);
+        }
     },
 
-    // Redirect to the product details page after an action (e.g., after editing a product)
-    redirectShow(req, res, next){
-        if(res.locals.data.token){
-        res.redirect(`${RESOURCE_PATH}/${req.params.id}?token=${res.locals.data.token}`)
-        }else {
-        res.redirect(`${RESOURCE_PATH}/${req.params.id}`)
-        } 
+    // Redirect to show page after update
+    redirectShow(req, res, next) {
+        if (res.locals.data.token) {
+            res.redirect(`${RESOURCE_PATH}/${req.params.id}?token=${res.locals.data.token}`);
+        } else {
+            res.redirect(`${RESOURCE_PATH}/${req.params.id}`);
+        }
     }
 };
 

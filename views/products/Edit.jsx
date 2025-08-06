@@ -5,6 +5,7 @@ function Edit(props) {
     // Destructure the props to access product data
     const { _id, image, name, price, stock, supplier, available } = props.product;
     const token = props.token;
+    const suppliers = props.suppliers || [];
 
     return (
         <div>
@@ -29,7 +30,16 @@ function Edit(props) {
                     Stock: <input type="number" name="stock" defaultValue={stock} /><br />
                 </p>
                 <p>
-                    Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br />
+                   <label htmlFor="supplier">Supplier</label>
+                    <select className="form-control" name="supplier" defaultValue={supplier?._id || ""}>
+                        {suppliers.map((supplier) => (
+                        <option key={supplier._id} value={supplier._id}>
+                            {supplier.name}
+                        </option>
+                        ))}
+                        <option disabled>─────────────</option>
+                        <option value="new">➕ Add New Supplier</option>
+                    </select>
                 </p>
                 <p>
                     Available:

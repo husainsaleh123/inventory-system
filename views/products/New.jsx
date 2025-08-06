@@ -7,7 +7,7 @@ function New(props) {
     const token = props.token;
 
     return (
-        <Layout>
+        <Layout token={token}>
         <div>
             <h1>New Product</h1>
             <a href={`/products?token=${props.token}`}>Go back to Index Page</a>
@@ -18,7 +18,24 @@ function New(props) {
                 <p>Product Name: <input type="text" name="name" defaultValue={name} /><br /></p>
                 <p>Price: <input type="number" name="price" defaultValue={price} min="0" step="0.05" /><br /></p>
                 <p>Stock: <input type="number" name="stock" defaultValue={stock} /><br /></p>
-                <p>Supplier: <input type="text" name="supplier" defaultValue={supplier} /><br /></p>
+                <p><strong>Supplier:</strong></p>
+                <select
+                    name="supplierName"
+                    required
+                    onChange={(e) => {
+                        if (e.target.value === 'add-new') {
+                            window.location.href = `/suppliers/new?token=${props.token}`;
+                        }
+                    }}
+                >
+                    <option value="">-- Select a supplier --</option>
+                    {props.suppliers?.map((supplier, idx) => (
+                        <option key={idx} value={supplier.name}>
+                            {supplier.name}
+                        </option>
+                    ))}
+                    <option value="add-new">➕ Add New Supplier</option>
+                </select>
                 <p>Available:
                     {available ? (
                         <input type="checkbox" name="available" defaultChecked />

@@ -7,7 +7,7 @@ function New(props) {
     const token = props.token;
     
     return (
-        <Layout>
+        <Layout token={token}>
         <div>
             <h1>New Supplier</h1>
             <a href={`/suppliers?token=${props.token}`}>Go back to Index Page</a>

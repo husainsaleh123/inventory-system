@@ -21,7 +21,7 @@ function Show(props) {
                 <p><strong>Supplier:</strong> {supplierName}</p>
                 <p><strong>Link:</strong> {link}</p>
                 <p><strong>Status:</strong> {status}</p>
-               <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
+                 <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
                 <p><strong>Quantity:</strong> {quantity}</p>
                 <p><strong>Total:</strong> {total}</p>
             <br />

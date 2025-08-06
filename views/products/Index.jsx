@@ -45,7 +45,7 @@ function Index(props) {
                                 </a>
                                 <p>Price: {product.price}</p>
                                 <p>Stock: {product.stock}</p>
-                                <p>Supplier: {product.supplier}</p>
+                                <p>Supplier: {product.supplier?.name || 'No Supplier'}</p>
                                 <p>Available: {product.available ? "Is available" : "Is not available"}</p>
                             </li>
                         ))}
@@ -57,3 +57,5 @@ function Index(props) {
 }
 
 module.exports = Index;
+
+

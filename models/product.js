@@ -5,12 +5,11 @@ const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
-    supplier: { type: String, required: true },
-    // supplier: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Supplier",
-    //     required: true
-    // },
+    supplier: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Supplier',
+    required: true
+    },
     available: { type: Boolean, required: true }
     // image: { type: String, required: false } // Optional field for image URL
 });

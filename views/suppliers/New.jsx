@@ -1,40 +1,57 @@
 const React = require("react");
-const Layout = require("../layouts/Layout"); 
+const Layout = require("../layouts/Layout");
 
 function New(props) {
-    // Access data passed via props (from the controller)
-    const { name = "", address = "", phone = "", email = ""} = props;
+    const { name = "", address = "", phone = "", email = "" } = props;
     const token = props.token;
-    
+
     return (
         <Layout token={token}>
-        <div>
-            <h1>New Supplier</h1>
-            <a href={`/suppliers?token=${props.token}`}>Go back to Index Page</a>
-            <form action={`/suppliers?token=${props.token}`} method="POST" encType="multipart/form-data">
-                <p>
-                    Logo: <input type="file" name="image" accept="image/*" /><br /> {/* Enables image image upload */}
-                </p>
-                <p>Supplier Name: <input type="text" name="name" defaultValue={name} /><br /></p>
-                <p>Address: <input type="text" name="address" defaultValue={address}/><br /></p>
-                <p>Phone: <input type="number" name="phone" defaultValue={phone} /><br /></p> 
-                <p>Email: <input type="text" name="email" defaultValue={email} /><br /></p>
-               
-                <div className="d-flex gap-2">
-                    <button type="submit" className="btn btn-primary">
-                        ➕ Add supplier
-                    </button>
-                    <a href={`/suppliers?token=${token}`} className="btn btn-secondary">
-                        ← Back to All suppliers
-                    </a>
-                </div>
-                
+            <div className="new-product-container">
+                <h1>New Supplier</h1>
+                <form
+                    action={`/suppliers?token=${token}`}
+                    method="POST"
+                    encType="multipart/form-data"
+                    className="new-product-form"
+                >
+                    <label>
+                        Logo:
+                        <input type="file" name="image" accept="image/*" />
+                    </label>
 
-                {/* <input type="submit" value="Add supplier" /> */}
-            </form>
-        </div>
+                    <label>
+                        Supplier Name:
+                        <input type="text" name="name" defaultValue={name} required />
+                    </label>
+
+                    <label>
+                        Address:
+                        <input type="text" name="address" defaultValue={address} required />
+                    </label>
+
+                    <label>
+                        Phone:
+                        <input type="number" name="phone" defaultValue={phone} required />
+                    </label>
+
+                    <label>
+                        Email:
+                        <input type="email" name="email" defaultValue={email} required />
+                    </label>
+
+                    <div className="form-buttons">
+                        <button type="submit" className="btn btn-primary">
+                            ➕ Add Supplier
+                        </button>
+                        <a href={`/suppliers?token=${token}`} className="btn btn-secondary">
+                            ← Back to All Suppliers
+                        </a>
+                    </div>
+                </form>
+            </div>
         </Layout>
-    )
+    );
 }
 
 module.exports = New;

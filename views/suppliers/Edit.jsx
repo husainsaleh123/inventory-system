@@ -6,34 +6,48 @@ function Edit(props) {
     const token = props.token;
 
     return (
-        <div>
-            <Layout token={token}>
-                <h1>✏️ Edit {name}</h1>
-
-                <form action={`/suppliers/${_id}?_method=PUT&token=${token}`} method="POST" encType="multipart/form-data">
-                    {/* Logo upload */}
-                    <p>
-                        Logo: <input type="file" name="image" accept="image/*" /><br />
-                        {/* Use correct variable: logo */}
-                       {image && (
-                            <img src={`/uploads/${image}`} alt="supplier" style={{ width: '100px' }} />
+        <Layout token={token}>
+            <div className="new-product-container">
+                <h1>✏️ Edit Supplier</h1>
+                <form
+                    action={`/suppliers/${_id}?_method=PUT&token=${token}`}
+                    method="POST"
+                    encType="multipart/form-data"
+                    className="new-product-form"
+                >
+                    <label>
+                        Logo:
+                        <input type="file" name="image" accept="image/*" />
+                        {image && (
+                            <img
+                                src={`/uploads/${image}`}
+                                alt="supplier"
+                                style={{ marginTop: "0.5rem", width: "100px", borderRadius: "5px" }}
+                            />
                         )}
-                    </p>
+                    </label>
 
-                    <p>
-                        Name: <input type="text" name="name" defaultValue={name} /><br />
-                    </p>
-                    <p>
-                        Address: <input type="text" name="address" defaultValue={address} /><br />
-                    </p>
-                    <p>
-                        Phone: <input type="text" name="phone" defaultValue={phone} /><br />
-                    </p>
-                    <p>
-                        Email: <input type="email" name="email" defaultValue={email} /><br />
-                    </p>
+                    <label>
+                        Name:
+                        <input type="text" name="name" defaultValue={name} required />
+                    </label>
 
-                    <div className="d-flex gap-2">
+                    <label>
+                        Address:
+                        <input type="text" name="address" defaultValue={address} required />
+                    </label>
+
+                    <label>
+                        Phone:
+                        <input type="text" name="phone" defaultValue={phone} required />
+                    </label>
+
+                    <label>
+                        Email:
+                        <input type="email" name="email" defaultValue={email} required />
+                    </label>
+
+                    <div className="form-buttons">
                         <button type="submit" className="btn btn-primary">
                             💾 Update Supplier
                         </button>
@@ -42,8 +56,8 @@ function Edit(props) {
                         </a>
                     </div>
                 </form>
-            </Layout>
-        </div>
+            </div>
+        </Layout>
     );
 }
 

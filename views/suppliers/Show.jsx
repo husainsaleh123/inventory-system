@@ -1,47 +1,52 @@
 const React = require("react");
-const Layout = require('../layouts/Layout')
+const Layout = require('../layouts/Layout');
 
 function Show(props) {
-    // Destructure the supplier data passed from the server
     const { _id, image, name, address, phone, email } = props.supplier;
     const token = props.token;
 
-    
     return (
-        <Layout token={props.token}>
-        <div>
-            <h1>{props.supplier.name} Details</h1>
-            {/* Displays the supplier image if available */}
-            <p><strong>Logo:</strong></p>
-            {image ? (
-            <img src={`/uploads/${image}`} alt={name} style={{ width: '200px', height: 'auto' }} />
-            ) : (
-            <img src="/uploads/default-image.jpg" alt="Default" style={{ width: '200px', height: 'auto' }} />
-            )}
-            
-            <p><strong>Name:</strong> {name}</p>
-            <p><strong>Address:</strong> {address}</p>
-            <p><strong>Phone:</strong> {phone}</p>
-            <p><strong>Email:</strong> {email}</p>
+        <Layout token={token}>
+            <div className="new-product-container">
+                <h1>📦 {name} Details</h1>
 
-            <br />
-
-            <div className="d-flex gap-2">
-                    <a href={`/suppliers?token=${props.token}`} className="btn btn-secondary">
-                        ← 📃 All suppliers
-                    </a>
-                    <a href={`/suppliers/${_id}/edit?token=${token}`} className="btn btn-primary">
-                        ✏️ Edit supplier
-                    </a>
-                   <form action={`/suppliers/${_id}?_method=DELETE&token=${token}`} method="POST">
-                        <button type="submit" className="btn btn-primary">
-                        🗑️ Delete supplier
-                        </button>
-                    </form>
+                <div style={{ marginBottom: "1.5rem" }}>
+                    <p><strong>Logo:</strong></p>
+                    <img
+                        src={image ? `/uploads/${image}` : "/uploads/default-image.jpg"}
+                        alt={name}
+                        style={{
+                            width: '200px',
+                            height: 'auto',
+                            borderRadius: '8px',
+                            boxShadow: '0 0 8px rgba(0,0,0,0.1)'
+                        }}
+                    />
                 </div>
-        </div>
+
+                <ul className="product-details">
+                    <li><span className="label">Name:</span> {name}</li>
+                    <li><span className="label">Address:</span> {address}</li>
+                    <li><span className="label">Phone:</span> {phone}</li>
+                    <li><span className="label">Email:</span> {email}</li>
+                </ul>
+
+               <div className="form-buttons">
+                <a href={`/suppliers?token=${token}`} className="btn btn-secondary">
+                    ← 📃 All Suppliers
+                </a>
+                <a href={`/suppliers/${_id}/edit?token=${token}`} className="btn btn-primary">
+                    ✏️ Edit Supplier
+                </a>
+                <form action={`/suppliers/${_id}?_method=DELETE&token=${token}`} method="POST" style={{ display: 'inline' }}>
+                    <button type="submit" className="btn btn-danger">
+                        🗑️ Delete Supplier
+                    </button>
+                </form>
+            </div>
+            </div>
         </Layout>
-    )
+    );
 }
 
 module.exports = Show;

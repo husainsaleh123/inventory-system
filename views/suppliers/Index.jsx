@@ -7,45 +7,45 @@ function Index(props) {
 
     return (
         <Layout token={token}>
-            <div>
-                <h1 style={{ textAlign: 'center', color: 'seagreen' }}>All suppliers</h1>
-
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Your supplier Collection</h2>
-                    <a href={`/suppliers/new?token=${token}`} className="btn btn-success">
-                        ➕ Add New Supplier
+            <div className="product-grid-wrapper">
+                <div className="product-grid-header">
+                    <h1 className="product-grid-title">Your Supplier Collection</h1>
+                    <a href={`/suppliers/new?token=${token}`} className="btn btn-primary">
+                        + Add New Supplier
                     </a>
                 </div>
 
                 {suppliers.length === 0 ? (
                     <p>No suppliers yet! Add your first supplier to get started.</p>
                 ) : (
-                    <ul className="supplier-list">
+                    <div className="product-grid">
                         {suppliers.map((supplier) => (
-                            <li key={supplier._id} className="supplier-item">
-                                {/* Supplier Image */}
-                                <img
-                                    src={`/uploads/${supplier.image || 'default-image.jpg'}`}
-                                    alt={supplier.name}
-                                    style={{ width: '100px', height: 'auto' }}
-                                />
+                            <div key={supplier._id} className="product-card horizontal-card">
+                                <div className="product-image-container">
+                                    <img
+                                        src={`/uploads/${supplier.image || 'default-image.jpg'}`}
+                                        alt={supplier.name}
+                                        className="product-image"
+                                    />
+                                </div>
 
-                                {/* Supplier Info */}
-                                <div>
-                                    <h3>{supplier.name}</h3>
-                                    <p><strong>Address:</strong> {supplier.address}</p>
-                                    <p><strong>Phone:</strong> {supplier.phone}</p>
-                                    <p><strong>Email:</strong> {supplier.email}</p>
+                                <div className="product-info">
+                                    <h2 className="product-name">{supplier.name}</h2>
+                                    <ul className="product-details">
+                                        <li><span className="label">Address:</span> {supplier.address}</li>
+                                        <li><span className="label">Phone:</span> {supplier.phone}</li>
+                                        <li><span className="label">Email:</span> {supplier.email}</li>
+                                    </ul>
 
-                                    <div className="d-flex gap-2">
-                                    <a href={`/suppliers/${supplier._id}?token=${token}`} className="btn btn-secondary">
-                                        👁️ View
-                                    </a>
+                                    <div className="product-actions d-flex gap-2 mt-2">
+                                        <a href={`/suppliers/${supplier._id}?token=${token}`} className="btn btn-secondary">
+                                            👁️ View
+                                        </a>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 )}
             </div>
         </Layout>

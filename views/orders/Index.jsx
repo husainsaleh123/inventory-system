@@ -7,57 +7,50 @@ function Index(props) {
 
     return (
         <Layout token={token}>
-            <div>
-                <h1 style={{ textAlign: 'center', color: 'seagreen' }}>All orders</h1>
-
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    {/* <a href={`/orders/new?token=${token}`} className="btn btn-success">
-                        ➕ Add New order
+            <div className="product-grid-wrapper">
+                <div className="product-grid-header">
+                    <h1 className="product-grid-title">All Orders</h1>
+                    {/* Add Order button (optional for future) */}
+                    {/* <a href={`/orders/new?token=${token}`} className="btn btn-primary">
+                        ➕ Add New Order
                     </a> */}
                 </div>
 
                 {orders.length === 0 ? (
                     <p>No orders yet! Add your first order to get started.</p>
                 ) : (
-                    <ul className="order-list">
+                    <div className="product-grid">
                         {orders.map((order) => (
-                            <li key={order._id} className="order-item">
-                                {order.image ? (
+                            <div key={order._id} className="product-card horizontal-card">
+                                <div className="product-image-container">
                                     <img
-                                        src={`/uploads/${order.image}`}
+                                        src={order.image ? `/uploads/${order.image}` : "/uploads/default-image.jpg"}
                                         alt={order.productName}
-                                        style={{ width: '100px', height: 'auto' }}
+                                        className="product-image"
                                     />
-                                ) : (
-                                    <img
-                                        src="/uploads/default-image.jpg"
-                                        alt="Default"
-                                        style={{ width: '100px', height: 'auto' }}
-                                    />
-                                )}
-                                {/* Order Info */}
-                                <div>
-                                   
-                                        <h3> {order.productName} Order</h3>
-                               
-                                    <p><strong>Product:</strong> {order.productName}</p>
-                                    <p><strong>Supplier:</strong> {order.supplierName}</p>
-                                    <p><strong>Link:</strong> {order.link}</p>
-                                    <p><strong>Status:</strong> {order.status}</p>
-                                    <p><strong>Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
-                                    <p><strong>Quantity:</strong> {order.quantity}</p>
-                                    <p><strong>Total:</strong> {order.total}</p>
-
-                                    <div className="d-flex gap-2">
-                                    <a href={`/orders/${order._id}?token=${token}`} className="btn btn-secondary">
-                                        👁️ View
-                                    </a>
-                                    </div>
                                 </div>
 
-                            </li>
+                                <div className="product-info">
+                                    <h2 className="product-name">{order.productName} Order</h2>
+                                    <ul className="product-details">
+                                        <li><span className="label">Product:</span> {order.productName}</li>
+                                        <li><span className="label">Supplier:</span> {order.supplierName}</li>
+                                        <li><span className="label">Link:</span> {order.link}</li>
+                                        <li><span className="label">Status:</span> {order.status}</li>
+                                        <li><span className="label">Date:</span> {new Date(order.date).toLocaleDateString()}</li>
+                                        <li><span className="label">Quantity:</span> {order.quantity}</li>
+                                        <li><span className="label">Total:</span> {order.total} BD</li>
+                                    </ul>
+
+                                    <div className="product-actions d-flex gap-2 mt-2">
+                                        <a href={`/orders/${order._id}?token=${token}`} className="btn btn-secondary">
+                                            👁️ View
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 )}
             </div>
         </Layout>

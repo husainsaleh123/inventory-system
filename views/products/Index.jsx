@@ -1,73 +1,62 @@
 const React = require("react");
-const Layout = require("../layouts/Layout"); // make sure this import is correct!
+const Layout = require('../layouts/Layout');
 
 function Index(props) {
-    const products = props.products || [];
+    const { products } = props;
     const token = props.token;
 
     return (
-        <Layout token={props.token}>
-            <div>
-                <h1>All products</h1>
-                {/* <a href={`/products/new?token=${token}`}>Add New Product</a> */}
-
-                <div className="d-flex justify-between align-center mb-3">
-                <h2>Your Product Collection</h2>
-                <a href={`/products/new?token=${token}`} className="btn btn-primary">
-                    ➕ Add New Product
-                </a>
+        <Layout token={token}>
+            <div className="product-grid-wrapper">
+                {/* Heading and Add Product button row */}
+                <div className="product-grid-header">
+                    <h1 className="product-grid-title">View our product collection</h1>
+                    <a href={`/products/new?token=${token}`} className="btn btn-primary">
+                        + Add New Product
+                    </a>
                 </div>
 
+                <div className="product-grid">
+                    {products.map(product => (
+                        <div key={product._id} className="product-card horizontal-card">
+                            <div className="product-image-container">
+                                <img
+                                    src={product.image ? `/uploads/${product.image}` : "/uploads/default-image.jpg"}
+                                    alt={product.name}
+                                    className="product-image"
+                                />
+                            </div>
 
-                {products.length === 0 ? (
-                    <p>No products yet! Add your first product to get started.</p>
-                ) : (
-                    <ul>
-                        {products.map(product => (
-                            <li key={product._id}>
-                                {/* Display product image if available */}
-                                {product.image ? (
-                                    <img
-                                        src={`/uploads/${product.image}`}
-                                        alt={product.name}
-                                        style={{ width: '100px', height: 'auto' }}
-                                    />
-                                ) : (
-                                    <img
-                                        src="/uploads/default-image.jpg"
-                                        alt="Default"
-                                        style={{ width: '100px', height: 'auto' }}
-                                    />
-                                )}
+                            <div className="product-info">
+                                <h2 className="product-name">{product.name}</h2>
+                                <ul className="product-details">
+                                    <li><span className="label">Price:</span> {product.price} BD</li>
+                                    <li><span className="label">Stock:</span> {product.stock}</li>
+                                    <li><span className="label">Supplier:</span> {product.supplier?.name || 'No Supplier'}</li>
+                                    <li><span className="label">Available:</span> {product.available ? "Yes" : "No"}</li>
+                                </ul>
 
-                                <p>Product Name: {product.name}</p>
-                                <p>Price: {product.price}</p>
-                                <p>Stock: {product.stock}</p>
-                                <p>Supplier: {product.supplier?.name || 'No Supplier'}</p>
-                                <p>Available: {product.available ? "Is available" : "Is not available"}</p>
-
-                                <div className="d-flex gap-2">
-                                <a href={`/products/${product._id}?token=${token}`} className="btn btn-secondary">
-                                    👁️ View
-                                </a>
-                                <a href={`/orders/new?token=${token}&productId=${product._id}`} className="btn btn-secondary">
-                                    🛒 Order
-                                </a>
-                                 </div>
-
-                            </li>
-
-                        ))}
-                    </ul>
-                )}
-
-
-
+                                <div className="product-actions d-flex gap-2 mt-2">
+                                    <a
+                                        href={`/orders/new?productId=${product._id}&token=${token}`}
+                                        className="btn btn-primary"
+                                    >
+                                        🛒 Order
+                                    </a>
+                                    <a
+                                        href={`/products/${product._id}?token=${token}`}
+                                        className="btn btn-secondary"
+                                    >
+                                        📄 View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </Layout>
     );
 }
 
 module.exports = Index;
-
-

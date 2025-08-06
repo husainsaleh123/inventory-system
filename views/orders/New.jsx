@@ -13,80 +13,84 @@ function New(props) {
 
   return (
     <Layout token={token}>
-      <div>
-        <h1 style={{ color: 'green', textAlign: 'center' }}>New Order</h1>
-        <a href={`/orders?token=${token}`}>← Back to Orders</a>
+      <div className="new-product-container">
+        <h1>New Order</h1>
 
-        <form action={`/orders?token=${token}`} method="POST" encType="multipart/form-data">
-          {/* Image Preview + Hidden Input */}
+        <form
+          action={`/orders?token=${token}`}
+          method="POST"
+          encType="multipart/form-data"
+          className="new-product-form"
+        >
           {productImage && (
-            <div>
-              <strong>Product Image:</strong><br />
-              <img src={`/uploads/${productImage}`} alt="Selected" style={{ width: '150px' }} />
+            <label>
+              Product Image:
+              <img
+                src={`/uploads/${productImage}`}
+                alt="Selected"
+                style={{ width: '150px', marginTop: '0.5rem', borderRadius: '5px' }}
+              />
               <input type="hidden" name="image" value={productImage} />
-            </div>
+            </label>
           )}
 
-          {/* Product Name + ID */}
-          <p>
-            <strong>Product:</strong>
+          <label>
+            Product:
             <input
               type="text"
               name="productName"
               value={productName}
               readOnly
-              className="form-control"
+              required
             />
             <input type="hidden" name="productId" value={productId} />
-          </p>
+          </label>
 
-          {/* Supplier Name (read-only) */}
-          <p>
-            <strong>Supplier Name:</strong>
+          <label>
+            Supplier Name:
             <input
               type="text"
               name="supplierName"
               value={supplierName}
               readOnly
-              className="form-control"
+              required
             />
-          </p>
+          </label>
 
-          {/* Link */}
-          <p>
+          <label>
             Link:
-            <input type="text" name="link" className="form-control" required />
-          </p>
+            <input type="text" name="link" required />
+          </label>
 
-         {/* Status */}
-            <p>
+          <label>
             Status:
-            <select name="status" className="form-control" required>
-                <option value="">-- Select Status --</option>
-                <option value="Preparing">Preparing</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Received">Received</option>
+            <select name="status" required>
+              <option value="">-- Select Status --</option>
+              <option value="Preparing">Preparing</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Received">Received</option>
             </select>
-            </p>
+          </label>
 
-          {/* Date */}
-          <p>
+          <label>
             Date:
-            <input type="date" name="date" className="form-control" required />
-          </p>
+            <input type="date" name="date" required />
+          </label>
 
-          {/* Quantity (used by backend to auto-calculate total) */}
-          <p>
+          <label>
             Quantity:
-            <input type="number" name="quantity" className="form-control" required />
-          </p>
+            <input type="number" name="quantity" required />
+          </label>
 
-          {/* Removed "Total" field – calculated in backend */}
-
-          <button type="submit" className="btn btn-success">
-            ➕ Add Order
-          </button>
+          <div className="form-buttons">
+            <button type="submit" className="btn btn-primary">
+              ➕ Add Order
+            </button>
+            <a href={`/orders?token=${token}`} className="btn btn-secondary">
+              ← Back to Orders
+            </a>
+          </div>
         </form>
       </div>
     </Layout>

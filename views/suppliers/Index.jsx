@@ -10,7 +10,7 @@ function Index(props) {
             <div className="product-grid-wrapper">
                 <div className="product-grid-header">
                     <h1 className="product-grid-title">Your Supplier Collection</h1>
-                    <a href={`/suppliers/new?token=${token}`} className="btn btn-primary">
+                    <a href={`/suppliers/new?token=${token}`} className="btn btn-primary" id="supplier-add-btn">
                         + Add New Supplier
                     </a>
                 </div>

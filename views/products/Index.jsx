@@ -11,7 +11,7 @@ function Index(props) {
                 {/* Heading and Add Product button row */}
                 <div className="product-grid-header">
                     <h1 className="product-grid-title">View our product collection</h1>
-                    <a href={`/products/new?token=${token}`} className="btn btn-primary">
+                    <a href={`/products/new?token=${token}`} className="btn btn-primary" id="product-add-btn">
                         + Add New Product
                     </a>
                 </div>
@@ -31,7 +31,8 @@ function Index(props) {
                                 <h2 className="product-name">{product.name}</h2>
                                 <ul className="product-details">
                                     <li><span className="label">Price:</span> {product.price} BD</li>
-                                    <li><span className="label">Stock:</span> {product.stock}</li>
+                                    <li><span className="label">Stock:</span> {product.stock}
+                                    {product.stock < 10 && ( <span className="low-stock-alert">Warning: Low stock level!</span> )}</li>
                                     <li><span className="label">Supplier:</span> {product.supplier?.name || 'No Supplier'}</li>
                                     <li><span className="label">Available:</span> {product.available ? "Yes" : "No"}</li>
                                 </ul>

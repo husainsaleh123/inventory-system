@@ -35,7 +35,7 @@ function Edit(props) {
 
                     <label>
                         Price:
-                        <input type="number" name="price" defaultValue={price} min="0" step="0.05" required />
+                        <input type="number" name="price" defaultValue={price} min="0" step="0.01" required />
                     </label>
 
                     <label>

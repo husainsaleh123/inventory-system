@@ -9,34 +9,12 @@ function New(props) {
         <Layout token={token}>
             <div className="new-product-container">
                 <h1>New Product</h1>
-                <form
-                    action={`/products?token=${token}`}
-                    method="POST"
-                    encType="multipart/form-data"
-                    className="new-product-form"
-                >
-                    <label>
-                        Image:
-                        <input type="file" name="image" accept="image/*" />
-                    </label>
-
-                    <label>
-                        Product Name:
-                        <input type="text" name="name" defaultValue={name} required />
-                    </label>
-
-                    <label>
-                        Price:
-                        <input type="number" name="price" defaultValue={price} min="0" step="0.01" required />
-                    </label>
-
-                    <label>
-                        Stock:
-                        <input type="number" name="stock" defaultValue={stock} required />
-                    </label>
-
-                    <label>
-                        Supplier:
+                <form action={`/products?token=${token}`}  method="POST" encType="multipart/form-data" className="new-product-form">
+                    <label>Image:<input type="file" name="image" accept="image/*" /></label>
+                    <label>Product Name:<input type="text" name="name" defaultValue={name} required /></label>
+                    <label>Price: <input type="number" name="price" defaultValue={price} min="0" step="0.01" required /></label>
+                    <label>Stock: <input type="number" name="stock" defaultValue={stock} required /></label>
+                    <label>Supplier:
                         <select
                             name="supplierName"
                             required
@@ -53,12 +31,12 @@ function New(props) {
                                     {supplier.name}
                                 </option>
                             ))}
-                            <option value="add-new">➕ Add New Supplier</option>
+                            <option value="add-new">+ Add New Supplier</option>
                         </select>
                     </label>
 
                     <label className="checkbox-label">
-                        Available:
+                        <span>Available:</span>
                         <input type="checkbox" name="available" defaultChecked={available} />
                     </label>
 

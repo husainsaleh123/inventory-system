@@ -9,12 +9,7 @@ function New(props) {
         <Layout token={token}>
             <div className="new-product-container">
                 <h1>New Supplier</h1>
-                <form
-                    action={`/suppliers?token=${token}`}
-                    method="POST"
-                    encType="multipart/form-data"
-                    className="new-product-form"
-                >
+                <form action={`/suppliers?token=${token}`} method="POST" encType="multipart/form-data" className="new-product-form">
                     <label>
                         Logo:
                         <input type="file" name="image" accept="image/*" />
@@ -32,7 +27,7 @@ function New(props) {
 
                     <label>
                         Phone:
-                        <input type="number" name="phone" defaultValue={phone} required />
+                        <input type="text" name="phone" defaultValue={phone} required />
                     </label>
 
                     <label>

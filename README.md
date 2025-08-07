@@ -2,7 +2,11 @@
 
 ## 📜 Overview
 
-A full-stack MVC application will be created for Dar Altaweesh to help the firm display the products, track their suppliers and orders.
+A full-stack MVC application be created for Dar Altawawish to help the firm display the products, track their suppliers and orders.
+
+## 🪧 Demonstration
+
+![Alt text](./public/images/Demo1.png)
 
 ## ⚙️ Features
 
@@ -14,20 +18,24 @@ A full-stack MVC application will be created for Dar Altaweesh to help the firm 
 
 ## ⚙️ Technologies
 
-| Method    | Endpoint               | 
-|-----------|------------------------|
-| Frontend  | React.jsx, CSS         | 
-| Database  | Mongo DB & Mongoose    | 
-| Backend   | Node.js & Express.js   | 
+| Method           | Endpoint                   | 
+|------------------|----------------------------|
+| Server           | Node.js & Express.js       | 
+| Database         | Mongo DB & Mongoose        | 
+| Template         | JSX view engine, CSS       |
+| Bcrypt           | Password hashing           | 
+| Method-Override  | Mongo DB & Mongoose        | 
+| Morgan           | Request logging            | 
+| dotenv           | Environment configuration  |
 
 ## 🔌Models
 
 #### Supplier
 
+- logo: png, jpg, jpeg
 - name: String
 - phone: String
 - email: String
-- products[]: Array of Products (referring to Product model)
 
 #### Product
 
@@ -35,15 +43,18 @@ A full-stack MVC application will be created for Dar Altaweesh to help the firm 
 - name: String
 - price: float
 - stock: int
-- products[]: Array of Products (referring to Product model)
+- supplier: String `(refers to supplier model)`
 
 #### Order
 
-- items[]: Array of Products (array of references to Product)
-- total: float
-- status: String ("Pending", "Shipped", "Delivered", "Cancelled".)
+- img: png, jpg, jpeg `(refers to product model)`
+- product name: String `(refers to product model)`
+- supplier name: String `(refers to supplier model)`
+- status: String `(Option: "Pending", "Shipped", "Delivered", "Received".)`
 - date: Date
-- customer: String
+- quantity: number
+- total: number `(Auto-calculated: product.price * quantity)`
+
 
 ## 🗺️ Planning
 
@@ -53,10 +64,9 @@ A full-stack MVC application will be created for Dar Altaweesh to help the firm 
 
 | Method | Endpoint               | Description                              | Authentication Required |
 |--------|------------------------|------------------------------------------|-------------------------|
-| POST   | `/auth/login`          | User login, returns a token              | No                      |
-| POST   | `/auth/register`       | Register a new user                      | No                      |
-| GET    | `/auth/logout`         | Logout the user, invalidate the token    | Yes                     |
-| GET    | `/auth/me`             | Get the currently logged-in user’s info  | Yes                     |
+| POST   | `/users/`              | Register a new user                      | No                      |
+| POST   | `/users/login`         | User login, returns a token              | No                      |
+| GET    | `/users/logout`        | Logout the user, invalidate the token    | Yes                     |
 
 
 #### 2. Product Endpoints:
@@ -96,15 +106,22 @@ A full-stack MVC application will be created for Dar Altaweesh to help the firm 
 
 | Method | Endpoint              | Description                               | Authentication Required |
 |--------|-----------------------|-------------------------------------------|-------------------------|
-| GET    | `/`                   | Display homepage                          | No                      |
-| GET    | `/products`           | Display product listing page              | No                      |
-| GET    | `/products/:id`       | Display a specific product page           | No                      |
+| GET    | `/products`           | Display product listing page              | Yes                     |
+| GET    | `/products/:id`       | Display a specific product page           | Yes                     |
 | GET    | `/login`              | Display login page                        | No                      |
-| GET    | `/register`           | Display registration page                 | No                      |
-| GET    | `/orders`             | Display the user’s order history          | Yes                     |
+| GET    | `/users`              | Display registration page                 | No                      |
+| GET    | `/orders`             | Display the user’s orders                 | Yes                     |
 | GET    | `/orders/:id`         | Display details of a specific order       | Yes                     |
 | GET    | `/suppliers`          | Display supplier listing                  | Yes                     |
 | GET    | `/suppliers/:id`      | Display specific supplier details         | Yes                     |
+
+#### 🔜 Future updates
+
+- Add user roles (Manager, Employee, Admin, Customer).
+- Expand the system to allow customers to order products from it.
+- Add category filtering and search.
+- Improve UI/UX styling.
+
 
 #### ☑️ Trello Checklist
 

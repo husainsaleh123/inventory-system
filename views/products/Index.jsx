@@ -16,6 +16,9 @@ function Index(props) {
                     </a>
                 </div>
 
+                {products.length === 0 ? (
+                    <p>No products yet! Add your first products to get started.</p>
+                ) : (
                 <div className="product-grid">
                     {products.map(product => (
                         <div key={product._id} className="product-card horizontal-card">
@@ -55,6 +58,7 @@ function Index(props) {
                         </div>
                     ))}
                 </div>
+                )}
             </div>
         </Layout>
     );

@@ -1,7 +1,7 @@
 const Supplier = require('../../models/supplier');
 const supplierData = {};
 
-// ✅ INDEX - Get all suppliers for the logged-in user
+// INDEX - Get all suppliers for the logged-in user
 supplierData.index = async (req, res, next) => {
     try {
         // Populate suppliers if defined in the user schema
@@ -17,7 +17,7 @@ supplierData.index = async (req, res, next) => {
     }
 };
 
-// ✅ CREATE - Add a new supplier & link it to the user
+// CREATE - Add a new supplier & link it to the user
 supplierData.create = async (req, res, next) => {
     try {
         // Normalize 'available' checkbox
@@ -43,7 +43,7 @@ supplierData.create = async (req, res, next) => {
     }
 };
 
-// ✅ SHOW - Get one supplier by ID
+// SHOW - Get one supplier by ID
 supplierData.show = async (req, res, next) => {
     try {
         const supplier = await Supplier.findById(req.params.id);
@@ -57,7 +57,7 @@ supplierData.show = async (req, res, next) => {
     }
 };
 
-// ✅ UPDATE - Update supplier info
+//  UPDATE - Update supplier info
 supplierData.update = async (req, res, next) => {
     try {
         req.body.available = req.body.available === 'on';
@@ -74,7 +74,7 @@ supplierData.update = async (req, res, next) => {
     }
 };
 
-// ✅ DELETE - Remove supplier
+// DELETE - Remove supplier
 supplierData.destroy = async (req, res, next) => {
     try {
         await Supplier.findByIdAndDelete(req.params.id);

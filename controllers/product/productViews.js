@@ -1,4 +1,4 @@
-const Supplier = require('../../models/supplier'); // ✅ import Supplier model
+const Supplier = require('../../models/supplier'); 
 const RESOURCE_PATH = '/products';
 
 const productViews = {
@@ -15,7 +15,7 @@ const productViews = {
         res.render("products/Index", res.locals.data); 
     },
 
-    // ✅ Render the page for creating a new product WITH supplier list
+    // Render the page for creating a new product WITH supplier list
     async newView(req, res, next) {
         try {
             const suppliers = await Supplier.find({}, 'name'); // fetch supplier names only

@@ -17,7 +17,7 @@ const orderViews = {
         res.render("orders/Index", res.locals.data);
     },
 
-    // ✅ Updated: Render the page for creating a new order, and pass product/supplier info if productId is provided
+    // Updated: Renders the page for creating a new order, and passes product/supplier info if productId is provided
     async newView(req, res, next) {
         const token = req.query.token;
         let productData = {};

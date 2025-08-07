@@ -1,5 +1,5 @@
 const Order = require('../../models/order');
-const Product = require('../../models/product'); // ✅ Added to fetch product for price, supplier, image
+const Product = require('../../models/product'); 
 const orderData = {};
 
 // INDEX - Get all orders for the logged-in user
@@ -34,26 +34,26 @@ orderData.create = async (req, res, next) => {
             req.body.image = req.file.filename;
         }
 
-        // ✅ Get product by ID from hidden input
+        // Gets the product by ID from hidden input
         const product = await Product.findById(req.body.productId).populate('supplier');
         if (!product) throw new Error("Selected product not found.");
 
-        // ✅ Auto-fill fields from product
+        // Auto-fill fields from product
         req.body.productName = product.name;
         req.body.supplierName = product.supplier?.name || "Unknown Supplier";
         req.body.image = req.body.image || product.image; // fallback to product image if no upload
 
-        // ✅ Auto-calculate total
+        // Auto-calculates the total
         const quantity = parseInt(req.body.quantity) || 0;
         req.body.total = product.price * quantity;
 
-        // ✅ Attach user ID
+        // Attach user ID
         req.body.user = req.user._id;
 
-        // ✅ Create order
+        // Create order
         const newOrder = await Order.create(req.body);
 
-        // ✅ Link order to user
+        // Link order to user
         if (!req.user.orders) req.user.orders = [];
         req.user.orders.addToSet?.(newOrder._id);
         await req.user.save();

@@ -21,7 +21,7 @@ productData.index = async (req, res, next) => {
     }
 };
 
-// DELETE - Remove a product
+// DELETE - Removes a product
 productData.destroy = async (req, res, next) => {
     try {
         await Product.findOneAndDelete({ _id: req.params.id });
@@ -31,7 +31,7 @@ productData.destroy = async (req, res, next) => {
     }
 };
 
-// ✅ UPDATE - Update an existing product
+// UPDATE - Updates an existing product
 productData.update = async (req, res, next) => {
     req.body.available = req.body.available === "on";
 
@@ -56,10 +56,10 @@ productData.create = async (req, res, next) => {
     }
 
     try {
-        // Step 1: Normalize supplier name
+        // Normalize supplier name
         const supplierName = req.body.supplierName?.trim();
 
-        // Step 2: Case-insensitive search for supplier
+        // Case-insensitive search for supplier
         const supplier = await Supplier.findOne({
             name: { $regex: new RegExp(`^${supplierName}$`, 'i') }  // case-insensitive exact match
         });

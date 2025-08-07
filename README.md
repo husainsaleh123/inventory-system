@@ -2,7 +2,7 @@
 
 ## 📜 Overview
 
-A full-stack MVC application be created for Dar Altawawish to help the firm display the products, track their suppliers and orders.
+A full-stack MVC application created for Dar Altawawish, a gemstones and jewellery center, to help the firm display the products, track their suppliers and orders.
 
 ## 🪧 Demonstration
 
